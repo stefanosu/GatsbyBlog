@@ -13,6 +13,14 @@ import Header from "./header"
 import "./layout.css"
 import Helmet from "react-helmet"
 import Archive from './archive';
+import styled from  'styled-components'
+
+const MainLayout = styled.main `
+  max-width: 90%
+  margin: 0 auto
+  display: grid 
+  grid-template-columns: 4fr 1fr 
+`
 
 const Layout = ({ children }) => {
   const data = useStaticQuery(graphql`
@@ -39,22 +47,12 @@ const Layout = ({ children }) => {
           { name: 'keywords', content: 'sample, something'}, 
           ]}>
       </Helmet>
-      <div
-        style={{
-          margin: `0 auto`,
-          maxWidth: 960,
-          padding: `0px 1.0875rem 1.45rem`,
-          paddingTop: 0,
-        }}
-      >
-        <main>{children}</main>
-        <footer>
-          © {new Date().getFullYear()}, Built with
-          {` `}
-          <a href="https://www.gatsbyjs.org">Gatsby</a>
-        </footer>
-      </div>
-      <Archive/>
+      <MainLayout>
+        <div>
+          {children}
+        </div>
+        <Archive/>
+      </MainLayout>
     </>
   )
 }

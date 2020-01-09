@@ -14,7 +14,7 @@ query BlogPostListing {
           frontmatter{
             title
             slug 
-            date(formatString: "MMMM, DD, YYYY")
+            date(formatString: "MMMM DD, YYYY")
           }
         }
       }
