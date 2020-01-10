@@ -11,11 +11,11 @@ const HeaderWrapper = styled.div `
   img {
     margin-bottom: 0
   }`
-  
+
 const HeaderContainer = styled.div `
   margin: 0 auto
   max-width: 960px
-  padding: 1rem
+  padding: 0.3rem
 `
 
 const Header = ({ siteTitle }) => (
