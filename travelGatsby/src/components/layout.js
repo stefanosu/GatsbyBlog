@@ -8,6 +8,8 @@
 import React from "react"
 import PropTypes from "prop-types"
 import { useStaticQuery, graphql } from "gatsby"
+import Img from 'gatsby-image'
+import {Spring} from 'react-spring'
 
 import Header from "./header"
 import "./layout.css"
@@ -23,7 +25,7 @@ const MainLayout = styled.main `
   grid-gap: 40px
 `
 
-const Layout = ({ children }) => {
+const Layout = ({ children, location }) => {
   const data = useStaticQuery(graphql`
     query SiteTitleQuery {
       site {
@@ -32,29 +34,50 @@ const Layout = ({ children }) => {
           description
         }
       }
+      file(relativePath: {
+        regex:"/png/"
+      }) {
+        childImageSharp {
+          fluid(maxWidth:1000) {
+          ...GatsbyImageSharpFluid_tracedSVG
+          } 
+        }
+      }
     }
   `)
 
-  
   return (
-    <>
-      <Header siteTitle={data.site.siteMetadata.title} />
-      <Helmet siteTitle={data.site.siteMetadata.title} 
-        meta={[
-        {
-          name: 'description',
-          content: data.site.siteMetadata.description 
-        }, 
-          { name: 'keywords', content: 'sample, something'}, 
-          ]}>
-      </Helmet>
+    // <>
+    <Helmet siteTitle={data.site.siteMetadata.title}
+    meta={[
+      {
+        name: 'description',
+        content: data.site.siteMetadata.description 
+      }, 
+      { name: 'keywords', content: 'sample, something'}, 
+    ]}>
+    </Helmet>
+    <Header siteTitle={data.site.siteMetadata.title} />
+    <Spring 
+      from={{height: location.pathname === '/' ? 100 : 200 }} 
+      to={{height: location.pathname === '/' ? 200 : 100  }}
+      > 
+      {
+        styles => (
+          <div style={{overflow: 'hidden', ...styles }}>
+            <Img fluid={data.file.childImageSharp.fluid}/>
+          </div>
+        )}
+      </Spring>
+      // {location.pathname === '/' && 
+      // }
       <MainLayout>
         <div>
           {children}
         </div>
         <Archive/>
       </MainLayout>
-    </>
+    // </>
   )
 }
 

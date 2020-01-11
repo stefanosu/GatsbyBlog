@@ -3,9 +3,9 @@ import React from 'react';
 import Layout from "../components/layout"
 
 
-const About = () => (
+const About = ({location}) => (
   
-      <Layout> 
+      <Layout location={location}> 
         <div>
           <h2> About Us</h2> 
             <p>

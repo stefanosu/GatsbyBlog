@@ -30,9 +30,7 @@ const ArchiveList = styled.ul `
     font-size: 0.8rem
     text-decoration: underline
     color: #524763  
-  }
-  }
-
+    }
 `
 
 const Archive = () => {
