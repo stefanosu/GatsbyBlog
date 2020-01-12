@@ -9,7 +9,7 @@ import React from "react"
 import PropTypes from "prop-types"
 import { useStaticQuery, graphql } from "gatsby"
 import Img from 'gatsby-image'
-import {Spring} from 'react-spring'
+import {Spring} from 'react-spring/renderprops'
 
 import Header from "./header"
 import "./layout.css"
@@ -19,7 +19,7 @@ import styled from  'styled-components'
 
 const MainLayout = styled.main `
   max-width: 90%
-  margin: 0 auto
+  margin: 1rem auto
   display: grid 
   grid-template-columns: 3fr 1fr
   grid-gap: 40px
@@ -47,7 +47,7 @@ const Layout = ({ children, location }) => {
   `)
 
   return (
-    // <>
+    <>
     <Helmet siteTitle={data.site.siteMetadata.title}
     meta={[
       {
@@ -55,34 +55,35 @@ const Layout = ({ children, location }) => {
         content: data.site.siteMetadata.description 
       }, 
       { name: 'keywords', content: 'sample, something'}, 
-    ]}>
+    ]}> 
     </Helmet>
     <Header siteTitle={data.site.siteMetadata.title} />
     <Spring 
       from={{height: location.pathname === '/' ? 100 : 200 }} 
-      to={{height: location.pathname === '/' ? 200 : 100  }}
-      > 
+      to={{height: location.pathname === '/' ? 200 : 100  }}> 
       {
         styles => (
-          <div style={{overflow: 'hidden', ...styles }}>
+          <div style={{overflow: 'hidden', ...styles }}> 
             <Img fluid={data.file.childImageSharp.fluid}/>
           </div>
         )}
-      </Spring>
-      // {location.pathname === '/' && 
-      // }
+    </Spring>
       <MainLayout>
         <div>
           {children}
         </div>
         <Archive/>
       </MainLayout>
-    // </>
+    </>
   )
 }
 
 Layout.propTypes = {
   children: PropTypes.node.isRequired,
+}
+
+Layout.defaultProps = {
+  location: {},
 }
 
 export default Layout
