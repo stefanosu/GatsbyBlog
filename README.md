@@ -1,2 +1,2 @@
 # GatsbyBlog
-first blog created using Gatsby and Graphql
+First blog created using Gatsby and Graphql
